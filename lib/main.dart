@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
       // home: const TabsScreen(),
       initialRoute: TabsScreen.routeName,
       routes: routes,
-      onGenerateRoute: onGenerateRoute,
+      // onGenerateRoute: onGenerateRoute,
     );
   }
 }

@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import '../cart/cart.dart';
 import '../home/home.dart';
 import '../category/category.dart';
-import '../cart/cart.dart';
 import '../user/user.dart';
 
 List<Widget> pageList = const [
@@ -25,13 +23,23 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int currentIndex = 0;
 
+  PageController pageController = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("京东商城"),
       ),
-      body: pageList[currentIndex],
+      body: PageView(
+        controller: pageController,
+        children: pageList,
+        onPageChanged: (int index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
@@ -43,6 +51,7 @@ class _TabsScreenState extends State<TabsScreen> {
           setState(() {
             currentIndex = index;
           });
+          pageController.jumpToPage(index);
         },
       ),
     );
@@ -53,7 +62,7 @@ class _TabsScreenState extends State<TabsScreen> {
       BottomNavigationBarItem(
         icon: Icon(
           Icons.home,
-        ), 
+        ),
         label: "首页",
       ),
       BottomNavigationBarItem(
@@ -72,7 +81,7 @@ class _TabsScreenState extends State<TabsScreen> {
         icon: Icon(
           Icons.people,
         ),
-        label: "分类",
+        label: "我的",
       ),
     ];
   }
